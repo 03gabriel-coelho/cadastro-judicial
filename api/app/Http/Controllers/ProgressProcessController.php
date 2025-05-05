@@ -23,7 +23,7 @@ class ProgressProcessController extends Controller
      */
     public function index()
     {
-        $progressProcesses = $this->progressProcess->all();
+        $progressProcesses = $this->progressProcess->with('process')->get();
 
         return $progressProcesses;
     }
@@ -33,6 +33,8 @@ class ProgressProcessController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate($this->progressProcess->rules(), $this->progressProcess->feedback());
+
         $progressProcess = $this->progressProcess->create($request->all());
 
         return $progressProcess;
@@ -45,6 +47,10 @@ class ProgressProcessController extends Controller
     {
         $progressProcess = $this->progressProcess->find($id);
 
+        if($progressProcess === null) {
+            return response()->json(['error' => 'Processo pesquisado não encontrado!'], 404);
+        }
+
         return $progressProcess;
     }
 
@@ -54,6 +60,12 @@ class ProgressProcessController extends Controller
     public function update(Request $request, $id)
     {
         $progressProcess = $this->progressProcess->find($id);
+
+        if($progressProcess === null) {
+            return response()->json(['error' => 'Impossível realizar atualização, o processo pesquisado não foi encontrado!'], 404);
+        }
+
+        $request->validate($this->progressProcess->rules(), $this->progressProcess->feedback());
 
         $progressProcess->update($request->all());
 
@@ -67,8 +79,12 @@ class ProgressProcessController extends Controller
     {
         $progressProcess = $this->progressProcess->find($id);
 
+        if($progressProcess === null) {
+            return response()->json(['error' => 'Impossível realizar a exclusão, o processo pesquisado não foi encontrado!'], 404);
+        }
+
         $progressProcess->delete();
 
-        return ['msg' => 'O progresso do processo foi removido com sucesso!'];
+        return ['message' => 'O progresso do processo foi removido com sucesso!'];
     }
 }

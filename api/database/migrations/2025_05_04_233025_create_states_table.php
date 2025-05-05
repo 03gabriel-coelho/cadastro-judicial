@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('states', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('federal_state', 2);
-            $table->string('name_state', 20);
+            $table->string('federal_state', 2)->unique();
+            $table->string('name_state', 20)->unique();
             $table->boolean('active')->default(true);
         });
     }

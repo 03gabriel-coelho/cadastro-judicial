@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('processes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('process_number', 20);
+            $table->string('process_number', 20)->unique();
             $table->date('opening_date');
             $table->text('description');
             $table->string('customer', 100);
