@@ -7,12 +7,22 @@ use App\Models\Process;
 
 class ProcessController extends Controller
 {
+    protected $process;
+    /**
+     * Create a new controller instance.
+     *
+     * @param Process $process
+     */
+    public function __construct(Process $process)
+    {
+        $this->process = $process;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $processes = Process::all();
+        $processes = $this->process->all();
 
         return $processes;
     }
@@ -22,7 +32,7 @@ class ProcessController extends Controller
      */
     public function store(Request $request)
     {
-        $process = Process::create($request->all());
+        $process = $this->process->create($request->all());
 
         return $process;
     }
@@ -30,16 +40,20 @@ class ProcessController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Process $process)
+    public function show($id)
     {
+        $process = $this->process->find($id);
+
         return $process;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Process $process)
+    public function update(Request $request, $id)
     {
+        $process = $this->process->find($id);
+
         $process->update($request->all());
 
         return $process;
@@ -48,8 +62,10 @@ class ProcessController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Process $process)
+    public function destroy($id)
     {
+        $process = $this->process->find($id);
+
         $process->delete();
 
         return ['msg' => 'O processo foi removido com sucesso!'];
