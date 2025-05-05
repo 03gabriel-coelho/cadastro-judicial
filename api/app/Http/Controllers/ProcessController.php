@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Process;
 
 class ProcessController extends Controller
 {
@@ -11,15 +12,9 @@ class ProcessController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $processes = Process::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return $processes;
     }
 
     /**
@@ -27,38 +22,36 @@ class ProcessController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $process = Process::create($request->all());
+
+        return $process;
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Process $process)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return $process;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Process $process)
     {
-        //
+        $process->update($request->all());
+
+        return $process;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Process $process)
     {
-        //
+        $process->delete();
+
+        return ['msg' => 'O processo foi removido com sucesso!'];
     }
 }

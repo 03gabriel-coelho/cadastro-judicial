@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ProgressProcess;
+use Laravel\Prompts\Progress;
 
 class ProgressProcessController extends Controller
 {
@@ -11,15 +13,9 @@ class ProgressProcessController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $progressProcesses = ProgressProcess::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return $progressProcesses;
     }
 
     /**
@@ -27,38 +23,36 @@ class ProgressProcessController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $progressProcess = ProgressProcess::create($request->all());
+
+        return $progressProcess;
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(ProgressProcess $progressProcess)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return $progressProcess;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, ProgressProcess $progressProcess)
     {
-        //
+        $progressProcess->update($request->all());
+
+        return $progressProcess;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(ProgressProcess $progressProcess)
     {
-        //
+        $progressProcess->delete();
+
+        return ['msg' => 'O progresso do processo foi removido com sucesso!'];
     }
 }
