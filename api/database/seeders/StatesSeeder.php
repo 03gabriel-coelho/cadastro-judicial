@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\States;
 
@@ -13,141 +12,41 @@ class StatesSeeder extends Seeder
      */
     public function run(): void
     {
-        $states = new States();
-        $states->federal_state = 'AC';
-        $states->name_state = 'Acre';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'AL';
-        $states->name_state = 'Alagoas';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'AP';
-        $states->name_state = 'Amapá';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'AM';
-        $states->name_state = 'Amazonas';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'BA';
-        $states->name_state = 'Bahia';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'CE';
-        $states->name_state = 'Ceará';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'DF';
-        $states->name_state = 'Distrito Federal';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'ES';
-        $states->name_state = 'Espírito Santo';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'GO';
-        $states->name_state = 'Goiás';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'MA';
-        $states->name_state = 'Maranhão';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'MT';
-        $states->name_state = 'Mato Grosso';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'MS';
-        $states->name_state = 'Mato Grosso do Sul';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'MG';
-        $states->name_state = 'Minas Gerais';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'PA';
-        $states->name_state = 'Pará';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'PB';
-        $states->name_state = 'Paraíba';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'PR';
-        $states->name_state = 'Paraná';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'PE';
-        $states->name_state = 'Pernambuco';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'PI';
-        $states->name_state = 'Piauí';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'RJ';
-        $states->name_state = 'Rio de Janeiro';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'RN';
-        $states->name_state = 'Rio Grande do Norte';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'RS';
-        $states->name_state = 'Rio Grande do Sul';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'RO';
-        $states->name_state = 'Rondônia';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'RR';
-        $states->name_state = 'Roraima';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'SC';
-        $states->name_state = 'Santa Catarina';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'SP';
-        $states->name_state = 'São Paulo';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'SE';
-        $states->name_state = 'Sergipe';
-        $states->active = true;
-        $states->save();
-        $states = new States();
-        $states->federal_state = 'TO';
-        $states->name_state = 'Tocantins';
-        $states->active = true;
-        $states->save();
-        $states = new States();
+        $statesData = [
+            ['AC', 'Acre'],
+            ['AL', 'Alagoas'],
+            ['AP', 'Amapá'],
+            ['AM', 'Amazonas'],
+            ['BA', 'Bahia'],
+            ['CE', 'Ceará'],
+            ['DF', 'Distrito Federal'],
+            ['ES', 'Espírito Santo'],
+            ['GO', 'Goiás'],
+            ['MA', 'Maranhão'],
+            ['MT', 'Mato Grosso'],
+            ['MS', 'Mato Grosso do Sul'],
+            ['MG', 'Minas Gerais'],
+            ['PA', 'Pará'],
+            ['PB', 'Paraíba'],
+            ['PR', 'Paraná'],
+            ['PE', 'Pernambuco'],
+            ['PI', 'Piauí'],
+            ['RJ', 'Rio de Janeiro'],
+            ['RN', 'Rio Grande do Norte'],
+            ['RS', 'Rio Grande do Sul'],
+            ['RO', 'Rondônia'],
+            ['RR', 'Roraima'],
+            ['SC', 'Santa Catarina'],
+            ['SP', 'São Paulo'],
+            ['SE', 'Sergipe'],
+            ['TO', 'Tocantins'],
+        ];
+
+        foreach ($statesData as [$federal, $name]) {
+            States::firstOrCreate(
+                ['federal_state' => $federal],
+                ['name_state' => $name, 'active' => true]
+            );
+        }
     }
 }

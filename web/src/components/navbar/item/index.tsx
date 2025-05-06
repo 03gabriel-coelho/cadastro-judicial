@@ -1,4 +1,4 @@
-import { ItemProps } from "document/types/navbar";
+import { ItemProps } from "document/types/navbarTypes";
 import Link from "next/link";
 import styles from "./index.module.css";
 

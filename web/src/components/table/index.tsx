@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -7,61 +9,103 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import style from "./index.module.css";
-import { Button } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import { IoMdAdd } from "react-icons/io";
-
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
-) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
+import { useQuery } from "@tanstack/react-query";
+import { getProcesses } from "document/services/processServices";
+import { useMemo } from "react";
+import Loading from "../loading";
+import { Process } from "document/types/processTypes";
+import { FaDeleteLeft } from "react-icons/fa6";
+import { MdPreview } from "react-icons/md";
+import { BiSolidEdit } from "react-icons/bi";
 
 export default function BasicTable() {
-  return (
-    <TableContainer component={Paper} className={style.tableContainer}>
-      <div className={style.tableContent}>
-        <h2>Processos recentes</h2>
+  const { data, isLoading } = useQuery({
+    queryKey: ["processes"],
+    queryFn: getProcesses,
+  });
+
+  const ActionsComponent = (process: Process) => {
+    return (
+      <section className={style.rowActions}>
+        <Tooltip title="Visualizar andamentos">
+          <MdPreview />
+        </Tooltip>
+        <Tooltip title="Editar processo">
+          <BiSolidEdit />
+        </Tooltip>
+        <Tooltip title="Deletar processo">
+          <FaDeleteLeft />
+        </Tooltip>
+      </section>
+    );
+  };
+
+  const TableComponent = useMemo(() => {
+    if (isLoading) {
+      return <Loading />;
+    }
+    if (!data) {
+      return <p>Erro ao carregar processos!</p>;
+    }
+    if (!data.length) {
+      return null;
+    }
+
+    return (
+      <TableContainer component={Paper} className={style.tableContainer}>
         <Table className={style.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Dessert (100g serving)</TableCell>
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Fat&nbsp;(g)</TableCell>
-              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
+              <TableCell>Número</TableCell>
+              <TableCell>Estado</TableCell>
+              <TableCell>Data</TableCell>
+              <TableCell>Descrição</TableCell>
+              <TableCell>Cliente</TableCell>
+              <TableCell>Advogado(a)</TableCell>
+              <TableCell>Ações</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {data.map((row) => (
               <TableRow
-                key={row.name}
+                key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.process_number}
                 </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
+                <TableCell>{row.state.federal_state}</TableCell>
+                <TableCell>{row.opening_date}</TableCell>
+                <TableCell className={style.rowDescription}>
+                  {row.description}
+                </TableCell>
+                <TableCell>{row.customer}</TableCell>
+                <TableCell>{row.attorney}</TableCell>
+                <TableCell>{ActionsComponent(row)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-        <Button variant="contained" endIcon={<IoMdAdd />}>Novo processo</Button>
-      </div>
-    </TableContainer>
+      </TableContainer>
+    );
+  }, [data, isLoading]);
+
+  return (
+    <div className={style.tableContent}>
+      <h2>Processos recentes</h2>
+      {TableComponent}
+      <footer className={style.footer}>
+        {!data?.length && !isLoading ? (
+          <p className={style.emptyText}>Nenhum processo encontrado!</p>
+        ) : null}
+        {!isLoading ? (
+          <Button variant="contained" endIcon={<IoMdAdd />}>
+            Novo processo
+          </Button>
+        ) : null}
+      </footer>
+    </div>
   );
 }

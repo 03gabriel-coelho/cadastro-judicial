@@ -1,14 +1,4 @@
 .tableContainer {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background-color: var(--light) !important;
-}
-
-.tableContent {
   background-color: #FFF;
   width: 90% !important;
   max-height: 80%;
@@ -16,7 +6,19 @@
   max-width: 100%;
 }
 
-.tableContainer h2 {
+.tableContent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: var(--light) !important;
+  overflow: hidden;
+  border-radius: var(--borderRadius);
+}
+
+.tableContent h2 {
   color: var(--primary);
   font-size: 1.6rem;
   text-align: start;
@@ -31,8 +33,57 @@
   background-color: #FFF;
   border-radius: var(--borderRadius);
   max-height: 80%;
+  overflow: auto !important;
 }
 
 .tableContent button {
-  margin: 1rem; /*Posso mover livremente o componente dentro do componente pai com top e right */
+  margin: 1rem;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+}
+
+.footer .emptyText {
+  color: var(--primary);
+  font-size: 1.2rem;
+  text-align: start;
+  padding: 1rem 1rem;
+  letter-spacing: 0.08rem;
+  font-weight: 600;
+}
+
+.rowActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.rowActions svg {
+  width: 1.5em;
+  height: 1.5em;
+  cursor: pointer;
+}
+
+.rowActions svg:nth-child(1) {
+  color: var(--primary);
+}
+
+.rowActions svg:nth-child(2) {
+  width: 1.45em;
+  height: 1.45em;
+  color: var(--info);
+}
+
+.rowActions svg:nth-child(3) {
+  color: var(--danger);
+}
+
+.rowDescription {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 16vw; 
 }
