@@ -3,6 +3,9 @@
   width: 90%;
   height: 90%;
   border-radius: var(--borderRadius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 1260px) {
