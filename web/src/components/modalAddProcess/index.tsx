@@ -14,10 +14,12 @@ export default function ModalAddProcess({
   setOpen,
   states,
   handleSubmitProcess,
+  processToEdit
 }: ModalAddProcessProps) {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
     reset,
   } = useForm<ProcessFormValues>({
@@ -30,18 +32,39 @@ export default function ModalAddProcess({
   };
 
   const onSubmit = (data: ProcessFormValues) => {
-    handleSubmitProcess(data);
+    if (processToEdit) {
+      handleSubmitProcess(data, processToEdit.id);
+    } else {
+      handleSubmitProcess(data);
+    }
     handleClose();
   };
 
+  React.useEffect(() => {
+    if (processToEdit) {
+      reset({
+        process_number: processToEdit.process_number,
+        opening_date: processToEdit.opening_date,
+        description: processToEdit.description,
+        customer: processToEdit.customer,
+        attorney: processToEdit.attorney,
+        state_id: processToEdit.state_id,
+      });
+    } else {
+      reset();
+      setValue("state_id", undefined as unknown as number);
+      setValue("process_number", "");
+      setValue("opening_date", "");
+      setValue("description", "");
+      setValue("customer", "");
+      setValue("attorney", "")
+    }
+  }, [processToEdit, reset, open, setValue, states]);
+
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-add-process"
-    >
+    <Modal open={open} onClose={handleClose} aria-labelledby="modal-process">
       <Box className={style.modal}>
-        <h2>Adicionar Novo Processo</h2>
+        <h2>{processToEdit ? "Editar Processo" : "Adicionar Novo Processo"}</h2>
         <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
           <section className={style.formContainer}>
             <TextField
@@ -92,6 +115,7 @@ export default function ModalAddProcess({
               select
               label="Estado"
               {...register("state_id")}
+              defaultValue={processToEdit?.state_id || ""}
               error={!!errors.state_id}
               helperText={errors.state_id?.message}
               fullWidth
@@ -110,7 +134,7 @@ export default function ModalAddProcess({
               Cancelar
             </Button>
             <Button type="submit" variant="contained" color="primary">
-              Adicionar
+              {processToEdit ? "Salvar Alterações" : "Adicionar"}
             </Button>
           </footer>
         </form>

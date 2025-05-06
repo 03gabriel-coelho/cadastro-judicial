@@ -27,18 +27,21 @@ import { ptBR } from "date-fns/locale";
 import ModalAddProcess from "../modalAddProcess";
 import { useApp } from "document/app/appContext";
 import { useCreateProcess } from "document/hooks/useCreateProcess";
+import { useUpdateProcess } from "document/hooks/useUpdateProcess";
 
 export default function BasicTable() {
   const { states } = useApp();
 
   const deleteMutation = useDeleteProcess();
   const createMutation = useCreateProcess();
+  const updateMutation = useUpdateProcess();
 
   const [modalConfirm, setModalConfirm] = React.useState<ModalConfirmState>({
     open: false,
     process: null,
   });
   const [modalAddProcess, setModalAddProcess] = React.useState(false);
+  const [processToEdit, setProcessToEdit] = React.useState<Process>();
 
   const { data, isLoading } = useQuery({
     queryKey: ["processes"],
@@ -60,7 +63,13 @@ export default function BasicTable() {
         <Tooltip title="Visualizar andamentos">
           <MdPreview />
         </Tooltip>
-        <Tooltip title="Editar processo">
+        <Tooltip
+          title="Editar processo"
+          onClick={() => {
+            setProcessToEdit(process);
+            setModalAddProcess(true);
+          }}
+        >
           <BiSolidEdit />
         </Tooltip>
         <Tooltip
@@ -136,7 +145,11 @@ export default function BasicTable() {
           <p className={style.emptyText}>Nenhum processo encontrado!</p>
         )}
         {!isLoading && (
-          <Button variant="contained" endIcon={<IoMdAdd />} onClick={() => setModalAddProcess(true)}>
+          <Button
+            variant="contained"
+            endIcon={<IoMdAdd />}
+            onClick={() => setModalAddProcess(true)}
+          >
             Novo processo
           </Button>
         )}
@@ -150,9 +163,21 @@ export default function BasicTable() {
       {states && (
         <ModalAddProcess
           open={modalAddProcess}
-          setOpen={setModalAddProcess}
-          handleSubmitProcess={(data) => createMutation.mutate(data)}
+          setOpen={(bool) => {
+            setModalAddProcess(bool);
+            if (!bool) {
+              setProcessToEdit(undefined);
+            }
+          }}
+          handleSubmitProcess={(data, id) => {
+            if (!id) {
+              createMutation.mutate(data);
+            } else {
+              updateMutation.mutate({ id, data });
+            }
+          }}
           states={states}
+          processToEdit={processToEdit}
         />
       )}
     </div>

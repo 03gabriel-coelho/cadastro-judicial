@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
 
 class Process extends Model
 {
@@ -26,7 +27,13 @@ class Process extends Model
     public function rules()
     {
         return [
-            'process_number' => 'required|string|unique:processes,process_number,' . $this->id . '|max:20|min:1',
+            'process_number' =>  [
+                'required',
+                'string',
+                'max:20',
+                'min:1',
+                request()->isMethod('post') ? 'unique:processes,process_number' : '',
+            ],
             'opening_date' => 'required|date',
             'description' => 'required|string|min:1',
             'customer' => 'required|string|max:100|min:1',

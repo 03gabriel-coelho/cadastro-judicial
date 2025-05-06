@@ -47,5 +47,6 @@ export interface ModalAddProcessProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   states: { id: number; federal_state: string; name_state: string }[];
-  handleSubmitProcess: (data: ProcessFormValues) => void;
+  handleSubmitProcess: (data: ProcessFormValues, id?: number) => void;
+  processToEdit?: Process;
 }
