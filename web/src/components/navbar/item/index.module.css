@@ -1,0 +1,23 @@
+.item {
+  width: 100%;
+  height: 3rem;
+  background-color: var(--primary);
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  color: var(--light);
+  font-size: 1.3rem;
+}
+
+.item_selected {
+  background-color: var(--info);
+  transition: all 0.3s ease-in-out;
+}
+
+.item a {
+  color: var(--light);
+  font-size: 1.2rem;
+}

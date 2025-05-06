@@ -1,1 +1,12 @@
+.container {
+  background-color: var(--light);
+  width: 90%;
+  height: 90%;
+  border-radius: var(--borderRadius);
+}
 
+@media (min-width: 1260px) {
+  .container {
+    width: 1150px;
+  }
+}
