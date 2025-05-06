@@ -12,6 +12,11 @@
   font-size: 1.3rem;
 }
 
+.item svg {
+  position: relative;
+  bottom: 0.1rem;
+}
+
 .item_selected {
   background-color: var(--info);
   transition: all 0.3s ease-in-out;

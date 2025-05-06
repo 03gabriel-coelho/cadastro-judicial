@@ -1,3 +1,8 @@
+export type Response = {
+  message?: string;
+  error?: string;
+};
+
 export interface State {
   id: number;
   federal_state: string;

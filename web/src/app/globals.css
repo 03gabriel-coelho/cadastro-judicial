@@ -10,6 +10,7 @@
   --light: #F8F9FA;
   --dark: #212529;
   --borderRadius: 0.8rem;
+  --modalBoxShadow: 0px 24px 38px rgba(0, 0, 0, 0.25), 0px 9px 46px rgba(0, 0, 0, 0.22), 0px 11px 15px rgba(0, 0, 0, 0.2);
 }
 
 html,

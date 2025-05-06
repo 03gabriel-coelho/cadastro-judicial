@@ -19,12 +19,31 @@ import { Process } from "document/types/processTypes";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { MdPreview } from "react-icons/md";
 import { BiSolidEdit } from "react-icons/bi";
+import ModalConfirm from "../modalConfirm";
+import { ModalConfirmState } from "document/types/tableTypes";
+import { useDeleteProcess } from "document/hooks/useDeleteProcess";
 
 export default function BasicTable() {
+  const deleteMutation = useDeleteProcess();
+
+  const [modalConfirm, setModalConfirm] = React.useState<ModalConfirmState>({
+    open: false,
+    process: null,
+  });
+
   const { data, isLoading } = useQuery({
     queryKey: ["processes"],
     queryFn: getProcesses,
   });
+
+  const handleCloseModalConfirm = () => {
+    setModalConfirm({ open: false, process: null });
+  };
+
+  const handleDelete = (id: number) => {
+    handleCloseModalConfirm();
+    deleteMutation.mutate(id);
+  };
 
   const ActionsComponent = (process: Process) => {
     return (
@@ -35,7 +54,10 @@ export default function BasicTable() {
         <Tooltip title="Editar processo">
           <BiSolidEdit />
         </Tooltip>
-        <Tooltip title="Deletar processo">
+        <Tooltip
+          title="Deletar processo"
+          onClick={() => setModalConfirm({ open: true, process })}
+        >
           <FaDeleteLeft />
         </Tooltip>
       </section>
@@ -94,7 +116,7 @@ export default function BasicTable() {
 
   return (
     <div className={style.tableContent}>
-      <h2>Processos recentes</h2>
+      {!isLoading ? <h2>Processos recentes</h2> : null}
       {TableComponent}
       <footer className={style.footer}>
         {!data?.length && !isLoading ? (
@@ -106,6 +128,12 @@ export default function BasicTable() {
           </Button>
         ) : null}
       </footer>
+      <ModalConfirm
+        open={modalConfirm.open}
+        setOpen={(open) => setModalConfirm({ ...modalConfirm, open })}
+        process={modalConfirm.process}
+        handleSubmit={(process) => handleDelete(process.id)}
+      />
     </div>
   );
 }

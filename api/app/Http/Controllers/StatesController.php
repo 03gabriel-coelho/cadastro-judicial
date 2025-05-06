@@ -21,7 +21,7 @@ class StatesController extends Controller
      */
     public function index()
     {
-        $states = $this->states->all();
+        $states = $this->states->get()->where('active', 1);
 
         return $states;
     }

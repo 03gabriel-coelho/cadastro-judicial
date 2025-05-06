@@ -22,7 +22,10 @@ class ProcessController extends Controller
      */
     public function index()
     {
-        $processes = $this->process->with('state:id,federal_state,name_state,active')->get();
+        $processes = $this->process
+            ->with('state:id,federal_state,name_state,active')
+            ->orderBy('opening_date', 'desc')
+            ->get();
 
         return $processes;
     }
@@ -46,7 +49,7 @@ class ProcessController extends Controller
     {
         $process = $this->process->find($id);
 
-        if($process === null) {
+        if ($process === null) {
             return response()->json(['error' => 'Processo pesquisado não encontrado!'], 404);
         }
 
@@ -60,7 +63,7 @@ class ProcessController extends Controller
     {
         $process = $this->process->find($id);
 
-        if($process === null) {
+        if ($process === null) {
             return response()->json(['error' => 'Impossível realizar atualização, o processo pesquisado não foi encontrado!'], 404);
         }
 
@@ -78,7 +81,7 @@ class ProcessController extends Controller
     {
         $process = $this->process->find($id);
 
-        if($process === null) {
+        if ($process === null) {
             return response()->json(['error' => 'Impossível realizar a exclusão, o processo pesquisado não foi encontrado!'], 404);
         }
 
