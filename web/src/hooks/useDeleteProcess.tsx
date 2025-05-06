@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { useToast } from "document/app/toastContext";
+import { useApp } from "document/app/appContext";
 import { deleteProcess } from "document/services/processServices";
 import { Response } from "document/types/processTypes";
 
 export const useDeleteProcess = () => {
   const queryClient = useQueryClient();
-  const { showToast } = useToast();
+  const { showToast } = useApp();
 
   return useMutation({
     mutationFn: (id: number) => deleteProcess(id),

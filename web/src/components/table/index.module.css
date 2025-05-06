@@ -62,13 +62,15 @@
 }
 
 .rowActions svg {
-  width: 1.5em;
-  height: 1.5em;
+  width: 1.49em;
+  height: 1.49em;
   cursor: pointer;
 }
 
 .rowActions svg:nth-child(1) {
   color: var(--primary);
+  width: 1.45em;
+  height: 1.45em;
 }
 
 .rowActions svg:nth-child(2) {
@@ -85,5 +87,5 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 16vw; 
+  max-width: 18vw; 
 }

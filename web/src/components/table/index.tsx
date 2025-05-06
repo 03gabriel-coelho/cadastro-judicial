@@ -20,16 +20,25 @@ import { FaDeleteLeft } from "react-icons/fa6";
 import { MdPreview } from "react-icons/md";
 import { BiSolidEdit } from "react-icons/bi";
 import ModalConfirm from "../modalConfirm";
-import { ModalConfirmState } from "document/types/tableTypes";
+import { ModalConfirmState } from "document/types/componentsTypes";
 import { useDeleteProcess } from "document/hooks/useDeleteProcess";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import ModalAddProcess from "../modalAddProcess";
+import { useApp } from "document/app/appContext";
+import { useCreateProcess } from "document/hooks/useCreateProcess";
 
 export default function BasicTable() {
+  const { states } = useApp();
+
   const deleteMutation = useDeleteProcess();
+  const createMutation = useCreateProcess();
 
   const [modalConfirm, setModalConfirm] = React.useState<ModalConfirmState>({
     open: false,
     process: null,
   });
+  const [modalAddProcess, setModalAddProcess] = React.useState(false);
 
   const { data, isLoading } = useQuery({
     queryKey: ["processes"],
@@ -81,8 +90,8 @@ export default function BasicTable() {
           <TableHead>
             <TableRow>
               <TableCell>Número</TableCell>
-              <TableCell>Estado</TableCell>
               <TableCell>Data</TableCell>
+              <TableCell>Estado</TableCell>
               <TableCell>Descrição</TableCell>
               <TableCell>Cliente</TableCell>
               <TableCell>Advogado(a)</TableCell>
@@ -98,8 +107,12 @@ export default function BasicTable() {
                 <TableCell component="th" scope="row">
                   {row.process_number}
                 </TableCell>
+                <TableCell>
+                  {format(new Date(row.opening_date), "dd/MM/yyyy", {
+                    locale: ptBR,
+                  })}
+                </TableCell>
                 <TableCell>{row.state.federal_state}</TableCell>
-                <TableCell>{row.opening_date}</TableCell>
                 <TableCell className={style.rowDescription}>
                   {row.description}
                 </TableCell>
@@ -116,17 +129,17 @@ export default function BasicTable() {
 
   return (
     <div className={style.tableContent}>
-      {!isLoading ? <h2>Processos recentes</h2> : null}
+      {!isLoading && <h2>Processos recentes</h2>}
       {TableComponent}
       <footer className={style.footer}>
-        {!data?.length && !isLoading ? (
+        {!data?.length && !isLoading && (
           <p className={style.emptyText}>Nenhum processo encontrado!</p>
-        ) : null}
-        {!isLoading ? (
-          <Button variant="contained" endIcon={<IoMdAdd />}>
+        )}
+        {!isLoading && (
+          <Button variant="contained" endIcon={<IoMdAdd />} onClick={() => setModalAddProcess(true)}>
             Novo processo
           </Button>
-        ) : null}
+        )}
       </footer>
       <ModalConfirm
         open={modalConfirm.open}
@@ -134,6 +147,14 @@ export default function BasicTable() {
         process={modalConfirm.process}
         handleSubmit={(process) => handleDelete(process.id)}
       />
+      {states && (
+        <ModalAddProcess
+          open={modalAddProcess}
+          setOpen={setModalAddProcess}
+          handleSubmitProcess={(data) => createMutation.mutate(data)}
+          states={states}
+        />
+      )}
     </div>
   );
 }

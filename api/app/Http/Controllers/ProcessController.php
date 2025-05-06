@@ -39,7 +39,11 @@ class ProcessController extends Controller
 
         $process = $this->process->create($request->all());
 
-        return $process;
+        $processWithState = $this->process
+            ->with('state:id,federal_state,name_state,active')
+            ->find($process->id);
+
+        return response()->json($processWithState, 201);
     }
 
     /**

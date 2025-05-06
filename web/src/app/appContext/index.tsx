@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import style from "./index.module.css";
+import { State } from "document/types/processTypes";
 
 type ToastType = "success" | "error" | "warning";
 
@@ -8,21 +9,24 @@ interface ToastMessage {
   type: ToastType;
 }
 
-interface ToastContextProps {
+interface AppContextProps {
   showToast: (message: string, type: ToastType) => void;
+  states: State[] | null;
+  setStates: React.Dispatch<React.SetStateAction<State[] | null>>;
 }
 
-const ToastContext = createContext<ToastContextProps | undefined>(undefined);
+const AppContext = createContext<AppContextProps | undefined>(undefined);
 
-export const useToast = () => {
-  const context = useContext(ToastContext);
+export const useApp = () => {
+  const context = useContext(AppContext);
   if (!context) {
-    throw new Error("useToast must be used within a ToastProvider");
+    throw new Error("Algo deu errado, contexto não encontrado");
   }
   return context;
 };
 
-export const ToastProvider = ({ children }: { children: ReactNode }) => {
+export const AppProvider = ({ children }: { children: ReactNode }) => {
+  const [states, setStates] = useState<State[] | null>(null);
   const [toast, setToast] = useState<ToastMessage | null>(null);
 
   const showToast = (message: string, type: ToastType) => {
@@ -33,13 +37,13 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <ToastContext.Provider value={{ showToast }}>
+    <AppContext.Provider value={{ showToast, states, setStates }}>
       {children}
       {toast && (
         <div className={style.toast + " " + style[`toast-${toast.type}`]}>
           {toast.text}
         </div>
       )}
-    </ToastContext.Provider>
+    </AppContext.Provider>
   );
 };

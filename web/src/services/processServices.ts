@@ -15,3 +15,8 @@ export const deleteProcess = async (id: number): Promise<Response> => {
 
   return response.data;
 };
+
+export const createProcess = async (data: Omit<Process, 'id' | 'created_at' | 'updated_at' | 'state'>): Promise<Process | Response> => {
+  const response = await api.post('/api/processes', data);
+  return response.data;
+};
