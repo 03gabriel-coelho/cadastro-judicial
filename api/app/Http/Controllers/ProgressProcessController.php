@@ -4,18 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProgressProcess;
+use App\Models\Process;
 
 class ProgressProcessController extends Controller
 {
     protected $progressProcess;
+    protected $process;
     /**
      * Create a new controller instance.
      *
      * @param ProgressProcess $process
      */
-    public function __construct(ProgressProcess $progressProcess)
+    public function __construct(ProgressProcess $progressProcess, Process $process)
     {
         $this->progressProcess = $progressProcess;
+        $this->process = $process;
     }
 
     /**
@@ -43,13 +46,15 @@ class ProgressProcessController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($idProcess)
     {
-        $progressProcess = $this->progressProcess->find($id);
+        $process = $this->process->find($idProcess);
 
-        if($progressProcess === null) {
+        if($process === null) {
             return response()->json(['error' => 'Processo pesquisado não encontrado!'], 404);
         }
+
+        $progressProcess = $this->progressProcess->where('process_id', $idProcess)->get();
 
         return $progressProcess;
     }
