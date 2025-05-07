@@ -1,13 +1,13 @@
 type: collection.insomnia.rest/5.0
 name: teste_cadastro_judicial
 meta:
-  id: wrk_93fd608b92324c6db35a67553bdccb13
-  created: 1746446147881
-  modified: 1746446147881
+  id: wrk_6843a65d66734294880cf64e2bf412be
+  created: 1746487535737
+  modified: 1746487535737
 collection:
   - name: Processos
     meta:
-      id: fld_1b96afe1bdfe418db5fca933f49abbc5
+      id: fld_a8ba531f630441668eb8282efd5518ee
       created: 1746446784338
       modified: 1746477702199
       sortKey: -1746446784338
@@ -15,19 +15,19 @@ collection:
       - url: localhost:8000/api/processes
         name: Criar um processo
         meta:
-          id: req_6e5a39358433459f9983d4365d3bdd66
+          id: req_280c940bced34834a86cac372f5733ea
           created: 1746446307429
-          modified: 1746465644593
+          modified: 1746582464320
           isPrivate: false
           sortKey: -1746446787594
         method: POST
         body:
           mimeType: application/json
-          text: |-
+          text: >-
             {
               "process_number": "2312132133313",
               "opening_date": "2025-05-05",
-              "description": "Açã",
+              "description": "A presente ação trata-se de um processo judicial complexo envolvendo múltiplas partes e diversas fases processuais. O autor requer a reparação de danos materiais e morais decorrentes de supostos vícios ocultos em imóvel adquirido da parte ré. Durante a tramitação, foram realizadas audiências de conciliação, instrução e julgamento, além da produção de diversas provas documentais e testemunhais.",
               "customer": "Empresa XYZ Ltda.",
               "attorney": "Dra. Maria Silva",
               "state_id": 13
@@ -35,14 +35,10 @@ collection:
         headers:
           - name: Content-Type
             value: application/json
-            id: pair_07f5f098b687466087ff4d9eadc97925
           - name: User-Agent
             value: insomnia/11.0.2
-            id: pair_a09c500a4b3443c38d00147db7a78509
-          - id: pair_9936d46fd2d24c38a01a52db30392247
-            name: Accept
+          - name: Accept
             value: application/json
-            disabled: false
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -54,7 +50,7 @@ collection:
       - url: localhost:8000/api/processes
         name: Buscar todos os processos
         meta:
-          id: req_6ea4d8db8bee45efab780d87a05c8914
+          id: req_0284aa582bd54b348bb46092bb973cd1
           created: 1746449351193
           modified: 1746471751841
           isPrivate: false
@@ -63,11 +59,8 @@ collection:
         headers:
           - name: User-Agent
             value: insomnia/11.0.2
-            id: pair_17a9622957da49bbbe21e9764e58f566
-          - id: pair_6b493eb45b6a479e8cbb57a926be06a3
-            name: Accept
+          - name: Accept
             value: application/json
-            disabled: false
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -79,7 +72,7 @@ collection:
       - url: localhost:8000/api/processes/2
         name: Buscar um processo
         meta:
-          id: req_df7eb33000504c159095951032d64d11
+          id: req_58e78e6690694076bde4058dea8f5af7
           created: 1746449544151
           modified: 1746454572878
           isPrivate: false
@@ -99,7 +92,7 @@ collection:
       - url: localhost:8000/api/processes/5
         name: Atualizar processo
         meta:
-          id: req_c809d85b6c7842a686079f96f1ddf8ff
+          id: req_31cce588b3a14247b4bd13a57c1a61d6
           created: 1746450045134
           modified: 1746465723536
           isPrivate: false
@@ -119,14 +112,10 @@ collection:
         headers:
           - name: Content-Type
             value: application/json
-            id: pair_3d9773ed99ae4dcc91c41ebc018b5cf5
           - name: User-Agent
             value: insomnia/11.0.2
-            id: pair_7d1706c8ff334d6b80fe1f105dc6f4c5
-          - id: pair_0f3bbf08a5014043a751d611cf45f687
-            name: Accept
+          - name: Accept
             value: application/json
-            disabled: false
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -138,7 +127,7 @@ collection:
       - url: localhost:8000/api/processes/2
         name: Deletar processo
         meta:
-          id: req_d2c55a8b671946c5aa3dcaa3086816c9
+          id: req_3757b77e71f44b80bc408ae2ae92b8df
           created: 1746450289956
           modified: 1746457790592
           isPrivate: false
@@ -157,7 +146,7 @@ collection:
           rebuildPath: true
   - name: Andamentos do processo
     meta:
-      id: fld_781112d7efa643dfaecbedc3dfe4bf55
+      id: fld_39ffeb06ac54404e8a01765f975bf1f0
       created: 1746452147827
       modified: 1746477704372
       sortKey: -1743122940660
@@ -165,9 +154,9 @@ collection:
       - url: localhost:8000/api/progress_processes
         name: Criar um andamento
         meta:
-          id: req_a4f0d3bef4d2409993dd2d4a4a216b6e
+          id: req_64ae9268a0d44247933212f96d77eb05
           created: 1746452147828
-          modified: 1746469747683
+          modified: 1746573012999
           isPrivate: false
           sortKey: -1746446787594
         method: POST
@@ -177,19 +166,15 @@ collection:
             {
               "date": "2025-05-05",
               "description": "Audiência preliminar realizada e prazo aberto para apresentação de defesa.",
-              "process_id": 5
+              "process_id": 11
             }
         headers:
           - name: Content-Type
             value: application/json
-            id: pair_ddca8c87abe14057a1e5f935889a1dae
           - name: User-Agent
             value: insomnia/11.0.2
-            id: pair_386b8778f3194f659c3b12f8960356d8
-          - id: pair_a1c72b439d3c448682f86f946c63167a
-            name: Accept
+          - name: Accept
             value: application/json
-            disabled: false
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -201,7 +186,7 @@ collection:
       - url: localhost:8000/api/progress_processes
         name: Buscar todos os andamentos
         meta:
-          id: req_e38e2893fa5d4f19a41a01bc9aa92efa
+          id: req_e658b4540ba84b84bde7966ec10f6b87
           created: 1746452147830
           modified: 1746452550904
           isPrivate: false
@@ -218,18 +203,23 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: localhost:8000/api/progress_processes/2
-        name: Buscar andamento
+      - url: localhost:8000/api/progress_processes/11
+        name: Buscar andamentos de um processo
         meta:
-          id: req_1acf043a3e5e42328a29cfe80f51986e
+          id: req_18617cbb18964ad585f6eea2e286c849
           created: 1746452147831
-          modified: 1746469973590
+          modified: 1746573164368
           isPrivate: false
           sortKey: -1746449544151
         method: GET
         headers:
           - name: User-Agent
             value: insomnia/11.0.2
+            id: pair_a00f3ae5841b4f2c8e7fb9a236821ee2
+          - id: pair_311b3a013770435baebc4444f44f7428
+            name: Accept
+            value: application/json
+            disabled: false
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -241,7 +231,7 @@ collection:
       - url: localhost:8000/api/progress_processes/2
         name: Atualizar andamento
         meta:
-          id: req_91595ebdca1948448003b3727b07cc04
+          id: req_b90f7d203b3b4cd8808a8a4f2e8e743a
           created: 1746452147832
           modified: 1746469960825
           isPrivate: false
@@ -258,14 +248,10 @@ collection:
         headers:
           - name: Content-Type
             value: application/json
-            id: pair_aedfc279ec0e41ee9acc5099956672fc
           - name: User-Agent
             value: insomnia/11.0.2
-            id: pair_0430d4ff2e004060b8aa1795c698c8d5
-          - id: pair_3190cb9942b44b639d73f42fa19d1ef1
-            name: Accept
+          - name: Accept
             value: application/json
-            disabled: false
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -277,7 +263,7 @@ collection:
       - url: localhost:8000/api/progress_processes/1
         name: Deletar andamento
         meta:
-          id: req_52554f23c53f48bb97f510829c8da933
+          id: req_29628a6c324845b08d5ab093420487e4
           created: 1746452147833
           modified: 1746452383377
           isPrivate: false
@@ -297,7 +283,7 @@ collection:
   - url: localhost:8000/api/states
     name: Buscar os Estados
     meta:
-      id: req_ae114ab4e3ab42f4a4300b742234e46f
+      id: req_97805a17c6554462af4541d566f19a60
       created: 1746452461515
       modified: 1746452515592
       isPrivate: false
@@ -317,35 +303,30 @@ collection:
 cookieJar:
   name: Default Jar
   meta:
-    id: jar_e1b313280d585faeb4d6fbc56ea460a12d5436ea
+    id: jar_a61bff62c5ff4b72b1ee82a69673b6fa
     created: 1746446147890
     modified: 1746469719833
   cookies:
-    - key: XSRF-TOKEN
+    - id: c50c2559-12b7-40ec-bd3f-1c2affa1a3a4
+      key: XSRF-TOKEN
       value: eyJpdiI6IlZKTkoxWGpaSVc1eFJjOHA1N1h1a1E9PSIsInZhbHVlIjoiREZReDZiM3hqMlFuZG1hVVZVcmdRVmVocXdXMWVoWGxHdkUwNkUydGpmWWFpZEVCZXk0R3pwU3MwYkZYVW5UQkExUzIyUnpQcFdLSmhMbnZ6WGt5SGJnckVtUVh1QitSL2hxVUFwZFh2VzQ4UmZRZkJ5cGR2UnEzZVIyaVF1S1giLCJtYWMiOiI4Yjk1MTRkYWI0M2E1MGJmZDA3ZjAxODc5ODAwN2Y1MWFkYjYwOTAwYWRiZDE4OGY1NTk2NWJiNGZiY2ZmZDkyIiwidGFnIjoiIn0%3D
-      maxAge: 7200
       domain: localhost
       path: /
+      secure: false
+      httpOnly: false
       hostOnly: true
-      creation: 2025-05-05T15:24:11.351Z
-      lastAccessed: 2025-05-05T18:28:39.833Z
-      sameSite: lax
-      id: c50c2559-12b7-40ec-bd3f-1c2affa1a3a4
-    - key: laravel_session
+    - id: 7be005dd-14d9-49a8-8a37-490a72f03d22
+      key: laravel_session
       value: eyJpdiI6IndsdHVWSXBVWHlIaFpsVDFwQU5VYkE9PSIsInZhbHVlIjoiT1VFY0NPa2h5dG5ZZ0hQOUd2Z2NNaW9ob1V2MC9rMWIyZGZuOW9TMytWeTNwcnJLU2ZzMmFrYmhycjl2cDNDRW9LcmhvWDNzTW1hZ3F1OHZPNGtTNVRSWHRSdUUzYk5KYlc5NWpkbGtzTzFhRitIeHRCd2xFdGNXSTIzeXBabkEiLCJtYWMiOiI2OGExYjkxN2E1NWVkM2JlYTY1ZjdhNDQwNGEzZTllYmEyOGNhMjIzYmMwMzY2MjI4NGE4NmE3NTllY2MzYzlhIiwidGFnIjoiIn0%3D
-      maxAge: 7200
       domain: localhost
       path: /
+      secure: false
       httpOnly: true
       hostOnly: true
-      creation: 2025-05-05T15:24:11.352Z
-      lastAccessed: 2025-05-05T18:28:39.833Z
-      sameSite: lax
-      id: 7be005dd-14d9-49a8-8a37-490a72f03d22
 environments:
   name: Base Environment
   meta:
-    id: env_e1b313280d585faeb4d6fbc56ea460a12d5436ea
+    id: env_63dab2d450cc49a78f5f971dea6190ce
     created: 1746446147884
     modified: 1746446196195
     isPrivate: false

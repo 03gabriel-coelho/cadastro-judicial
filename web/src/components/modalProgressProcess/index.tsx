@@ -103,7 +103,7 @@ export default function ModalProgressProcess({
       return <p>Erro ao carregar andamentos do processo!</p>;
     }
     if (!data.length) {
-      return <h3>Nenhum andamento encontrado!</h3>;
+      return <h3 style={{marginBottom: '1em'}}>Nenhum andamento encontrado!</h3>;
     }
 
     return (
