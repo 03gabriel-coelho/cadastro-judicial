@@ -8,7 +8,7 @@ Leia o **README** com atenção!.
   <summary><strong>🚀 Introdução 🚀</strong></summary>
 Diagrama de classe e objeto para uma visualização prévia:
 
-![Diagrama de classes](./assets/diagrama.png)
+![Diagrama de classes](./assets/diagrama_invisible.png)
 
 Demonstração do design da tela:
 
