@@ -8,11 +8,11 @@ Leia o **README** com atenção!.
   <summary><strong>🚀 Introdução 🚀</strong></summary>
 Diagrama de classe e objeto para uma visualização prévia:
 
-![Diagrama de classes](assets/diagrama.png)
+![Diagrama de classes](./assets/diagrama.png)
 
 Demonstração do design da tela:
 
-![Tela inicial](assets/print_1.png)
+![Tela inicial](./assets/print_1.png)
 
 </details>
 <details>
