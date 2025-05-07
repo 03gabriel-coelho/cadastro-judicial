@@ -22,12 +22,13 @@ import { BiSolidEdit } from "react-icons/bi";
 import ModalConfirm from "../modalConfirm";
 import { ModalConfirmState } from "document/types/componentsTypes";
 import { useDeleteProcess } from "document/hooks/useDeleteProcess";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import ModalAddProcess from "../modalAddProcess";
 import { useApp } from "document/app/appContext";
 import { useCreateProcess } from "document/hooks/useCreateProcess";
 import { useUpdateProcess } from "document/hooks/useUpdateProcess";
+import ModalProgressProcess from "../modalProgressProcess";
 
 export default function BasicTable() {
   const { states } = useApp();
@@ -42,6 +43,10 @@ export default function BasicTable() {
   });
   const [modalAddProcess, setModalAddProcess] = React.useState(false);
   const [processToEdit, setProcessToEdit] = React.useState<Process>();
+  const [modalProgress, setModalProgress] = React.useState<ModalConfirmState>({
+    open: false,
+    process: null,
+  });
 
   const { data, isLoading } = useQuery({
     queryKey: ["processes"],
@@ -60,7 +65,10 @@ export default function BasicTable() {
   const ActionsComponent = (process: Process) => {
     return (
       <section className={style.rowActions}>
-        <Tooltip title="Visualizar andamentos">
+        <Tooltip
+          title="Visualizar andamentos"
+          onClick={() => setModalProgress({ open: true, process })}
+        >
           <MdPreview />
         </Tooltip>
         <Tooltip
@@ -117,7 +125,7 @@ export default function BasicTable() {
                   {row.process_number}
                 </TableCell>
                 <TableCell>
-                  {format(new Date(row.opening_date), "dd/MM/yyyy", {
+                  {format(parseISO(row.opening_date), "dd/MM/yyyy", {
                     locale: ptBR,
                   })}
                 </TableCell>
@@ -157,7 +165,7 @@ export default function BasicTable() {
       <ModalConfirm
         open={modalConfirm.open}
         setOpen={(open) => setModalConfirm({ ...modalConfirm, open })}
-        process={modalConfirm.process}
+        processOrProgress={modalConfirm.process}
         handleSubmit={(process) => handleDelete(process.id)}
       />
       {states && (
@@ -178,6 +186,13 @@ export default function BasicTable() {
           }}
           states={states}
           processToEdit={processToEdit}
+        />
+      )}
+      {modalProgress.open && modalProgress.process && (
+        <ModalProgressProcess
+          open={modalProgress.open}
+          setOpen={(open) => setModalProgress({ ...modalConfirm, open })}
+          process={modalProgress.process as Process}
         />
       )}
     </div>

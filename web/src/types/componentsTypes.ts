@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { Process } from "./processTypes";
 import { IconType } from "react-icons/lib";
+import { ProgressProcess } from "./progressProcessTypes";
 
 export interface ItemProps {
   item: string | React.ReactNode;
@@ -11,14 +12,15 @@ export interface ItemProps {
 
 export type ModalConfirmState = {
   open: boolean;
-  process: Process | null;
+  process: Process | ProgressProcess | null;
 };
 export default interface ModalConfirmProps {
   open: boolean;
   setOpen: (open: boolean) => void;
-  process: Process | null;
-  handleSubmit: (process: Process) => void;
+  processOrProgress: Process | ProgressProcess | null;
+  handleSubmit: (process: Process | ProgressProcess) => void;
 }
+
 export const processSchema = z.object({
   process_number: z
     .string()
@@ -49,4 +51,26 @@ export interface ModalAddProcessProps {
   states: { id: number; federal_state: string; name_state: string }[];
   handleSubmitProcess: (data: ProcessFormValues, id?: number) => void;
   processToEdit?: Process;
+}
+
+export interface ModalProgressProcessProps {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  process: Process | null;
+}
+
+export const progressProcessSchema = z.object({
+  date: z.string().refine((date) => !isNaN(Date.parse(date)), {
+    message: "Data inválida",
+  }),
+  description: z.string().min(1, { message: "A descrição é obrigatória" }),
+});
+
+export type ProgressProcessFormValues = z.infer<typeof progressProcessSchema>;
+
+export interface ModalAddProgressProcessProps {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  handleSubmitProcess: (data: ProgressProcessFormValues, id?: number) => void;
+  progressToEdit?: ProgressProcess;
 }

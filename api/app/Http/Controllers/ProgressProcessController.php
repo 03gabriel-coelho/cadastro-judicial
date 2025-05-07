@@ -54,7 +54,7 @@ class ProgressProcessController extends Controller
             return response()->json(['error' => 'Processo pesquisado não encontrado!'], 404);
         }
 
-        $progressProcess = $this->progressProcess->where('process_id', $idProcess)->get();
+        $progressProcess = $this->progressProcess->where('process_id', $idProcess)->orderBy('date', 'asc')->get();
 
         return $progressProcess;
     }

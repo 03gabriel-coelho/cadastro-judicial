@@ -1,0 +1,55 @@
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  background-color: var(--light);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  outline: none;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formContainer {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+@media (max-width: 700px) {
+  .modal {
+    width: 90%;
+    padding: 16px;
+  }
+
+
+  .modalFooter {
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+  .form {
+    max-height: 80vh;
+  }
+
+  .modalFooter {
+    flex-direction: row;
+    align-items: center;
+  }
+}

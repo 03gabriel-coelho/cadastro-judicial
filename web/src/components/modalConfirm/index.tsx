@@ -4,11 +4,13 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import style from "./index.module.css";
 import ModalConfirmProps from "document/types/componentsTypes";
+import { Process } from "document/types/processTypes";
+import { ProgressProcess } from "document/types/progressProcessTypes";
 
 export default function ModalConfirm({
   open,
   setOpen,
-  process,
+  processOrProgress,
   handleSubmit,
 }: ModalConfirmProps) {
   const handleClose = () => setOpen(false);
@@ -24,8 +26,11 @@ export default function ModalConfirm({
         >
           <Box className={style.modal}>
             <h2>
-              Você tem certeza que deseja deletar o processo{" "}
-              {process.process_number} ?
+              Você tem certeza que deseja deletar o{" "}
+              {(processOrProgress as Process)?.process_number
+                ? "processo"
+                : "andamento"}{" "}
+              {(processOrProgress as Process)?.process_number || ""} ?
             </h2>
             <footer className={style.modalFooter}>
               <Button
@@ -38,7 +43,9 @@ export default function ModalConfirm({
               </Button>
               <Button
                 variant="contained"
-                onClick={() => handleSubmit(process)}
+                onClick={() =>
+                  handleSubmit(processOrProgress as ProgressProcess | Process)
+                }
                 className={style.modalButton}
                 color="error"
               >
