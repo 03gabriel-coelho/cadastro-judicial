@@ -1,4 +1,4 @@
-# Boas-vindas ao repositório do projeto de teste da empresa TWT Info!
+# Boas-vindas ao repositório do projeto cadastro judicial!
 
 O intuito deste projeto é criar uma aplicação **full-stack** para gerenciamento e cadastro de processos judiciais!
 
